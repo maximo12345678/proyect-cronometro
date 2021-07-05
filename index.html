@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buen Cronometro</title>
+    <link rel="stylesheet" type="text/css" href="styles.css"></link>
+
+</head>
+
+<!-- https://www.youtube.com/watch?v=aVISNta4R9k -->
+
+<script type="text/javascript">
+
+    var cronometro;//variable global que puedo usar en ambas funciones, para iniciar y para detener.
+
+    function prender(){
+            let contadorSegundos = 0;
+            let contadorMinutos = 0;
+
+            //accedemos al span de segundos y al de minutos
+            let sec = document.getElementById("segundos"); 
+            let min = document.getElementById("minutos");
+
+            //definoms aca, asi cuando se inicia el cronometro luego de haber detenido uno anterior, empieza a contar desde cero.
+            min.innerHTML = 0;
+            sec.innerHTML = 0;
+
+
+            cronometro = setInterval(
+                function(){
+        
+                    if (contadorSegundos == 60){
+                        contadorSegundos = 0;
+                        contadorMinutos += 1;
+                        min.innerHTML = contadorMinutos; //lo hacemos aca y no junto al de segundos, para no hacerlo innecesariamente 60 veces
+                    }
+
+                    sec.innerHTML = contadorSegundos; //se muestra la modificacion del segundo
+                    contadorSegundos ++; //se aumenta el segundo
+
+                }, 1000)
+    }
+
+
+    function detener(){
+        clearInterval(cronometro)
+    }
+
+
+</script>
+
+<body> <!-- onload="prender()"  -->
+    <p class="tituloCronometro">CRONOMETRO :)</p>
+    <hr></hr>
+    <div>
+        <input type="button" onclick="prender()" value="Iniciar" class="botones"></input>
+        <!-- <p class="cronometro"><span id="minutos">0</span>:<span id="segundos">0</span></p> -->
+        <input type="button" onclick="detener()" value="Detener" class="botones" style="color: red"></input>
+    </div>
+
+    <div class="caja">
+        
+        <img class="imagenCronometro" src="fotocronometro.png">
+        <p class="cronometro"><span id="minutos">0</span>:<span id="segundos">0</span></p>
+
+    </div>
+
+
+</body>
+
+</html>
